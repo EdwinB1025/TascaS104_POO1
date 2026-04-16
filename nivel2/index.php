@@ -7,18 +7,16 @@ $dado = new PokerDice();
 
 echo "\n-------LANZO EL PRIMER DADO---------\n";
 
-$dado->tirarDado(1);
-echo $dado->mostrarDado(1);
-echo $dado->mostrarUltimoDado(1);
+$dado->tirarDados(1);
+echo $dado->mostrarDados(1);
+echo $dado->mostrarDados(1, -1);
 
 echo "\n-------LANZO EL TERCER DADO---------\n";
 
-$dado->tirarDado(3);
-echo $dado->mostrarDado(3);
-echo $dado->mostrarUltimoDado(3);
-
-
-echo $dado->mostrarUltimosDados();
+$dado->tirarDados(3);
+echo $dado->mostrarDados(3);
+echo $dado->mostrarDados(3, -1);
+echo $dado->mostrarDados(null, -1);
 
 echo "\n-------MUESTRO LOS DADOS ACTUALES---------\n";
 
@@ -26,12 +24,11 @@ echo $dado->mostrarDados();
 
 echo "\n-------LANZO EL PRIMER DADO DE NUEVO---------\n";
 
-$dado->tirarDado();
-
+$dado->tirarDados(-1);
 echo $dado->mostrarDados();
-echo $dado->mostrarUltimosDados();
+echo $dado->mostrarDados(null, -1);
 
-echo $dado->mostrarTirada();
+echo $dado->mostrarTiradas(1);
 echo $dado->mostrarTiradas();
 
 echo "\n-------TIRO TODOS LOS DADOS---------\n";
@@ -42,8 +39,8 @@ echo $dado->mostrarDados();
 
 echo "\n-------MUESTRO SEXTO DADO---------\n";
 
-echo $dado->mostrarDado(10);
-echo $dado->mostrarUltimosDados();
+echo $dado->mostrarDados(10);
+echo $dado->mostrarDados(null, -1);
 echo $dado->mostrarTiradas();
 
 
@@ -52,5 +49,5 @@ echo "\n-------TIRO TODOS LOS DADOS---------\n";
 
 $dado->tirarDados();
 echo $dado->mostrarDados();
-echo $dado->mostrarUltimosDados();
+echo $dado->mostrarDados(null, -1);
 echo $dado->mostrarTiradas();
