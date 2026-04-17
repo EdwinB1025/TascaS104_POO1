@@ -12,11 +12,11 @@
 
 <body>
     <?php
-    session_start();
     spl_autoload_register(function ($class_name) {
         $base = __DIR__ . "/src/classes/";
         include $base . $class_name . '.php';
     });
+    session_start();
     //this is important to avoid resetting the variable each time the page refreshes.
     if (!isset($_SESSION['cinemas'])) {
         $_SESSION['cinemas'] = [];
@@ -40,7 +40,7 @@
                     Poblacion: ' . $cine->obtenerPoblacion() . '
                 </a>
             </div>
-            ' . '<br>';
+            ';
         }
         return $articulos;
     }
@@ -64,17 +64,17 @@
                 <input name="nombre" id="nombre" type="text" placeholder="Ingrese el nombre del cine">
                 <label for="poblacion">Poblacion</label>
                 <select name="poblacion" id="poblacion">
-                    <option value="Barcelona">Barcelona (capital)</option>
-                    <option value="Badalona">Badalona</option>
-                    <option value="Hosopitalet">Hosopitalet</option>
-                    <option value="Terrassa">Terrassa</option>
-                    <option value="Sabadell">Sabadell</option>
-                    <option value="Mataro">Mataro</option>
-                    <option value="Sant Cugat">Sant Cugat</option>
-                    <option value="Igualada">Igualada</option>
-                    <option value="Girona">Girona</option>
-                    <option value="Tarragona">Tarragona</option>
-                    <option value="Lleida">Lleida</option>
+                    <option value="barcelona">Barcelona (capital)</option>
+                    <option value="badalona">Badalona</option>
+                    <option value="hosopitalet">Hosopitalet</option>
+                    <option value="terrassa">Terrassa</option>
+                    <option value="sabadell">Sabadell</option>
+                    <option value="mataro">Mataro</option>
+                    <option value="sant cugat">Sant Cugat</option>
+                    <option value="igualada">Igualada</option>
+                    <option value="girona">Girona</option>
+                    <option value="tarragona">Tarragona</option>
+                    <option value="lleida">Lleida</option>
                 </select>
                 <button style="align-self: flex-start; margin: 0.5rem 0rem;" type="submit">Agregar</button>
             </form>
