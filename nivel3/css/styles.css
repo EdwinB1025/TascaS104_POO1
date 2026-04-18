@@ -53,8 +53,11 @@
 .article-delete {
     position: absolute;
     margin: 0;
+    background: none;
+    border: none;
     top: 0.10rem;
     right: 0.5rem;
+    cursor: pointer;
 }
 
 .article-delete::before {
@@ -73,8 +76,11 @@
 .article-edit {
     position: absolute;
     margin: 0;
+    background: none;
+    border: none;
     top: 0.10rem;
     right: 2.5rem;
+    cursor: pointer;
 }
 
 .article-edit::before {

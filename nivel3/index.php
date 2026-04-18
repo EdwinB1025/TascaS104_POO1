@@ -21,21 +21,18 @@
     if (!isset($_SESSION['cinemas'])) {
         $_SESSION['cinemas'] = [];
     }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $_SESSION['cinemas'][] = new Cinema($_POST['nombre'], $_POST['poblacion']);
-    }
-
     function crearArticulos(array $cinemas): string
     {
         $articulos = '';
-        foreach ($cinemas as $cine) {
+        foreach ($cinemas as $id => $cine) {
             $articulos .= '
                 <div class="article">
                 <a href="#">
                     <h3>' . $cine->obtenerNombre() . '
-                        <a href="#" class="article-edit"></a>
-                        <a href="#" class="article-delete"></a>
+                        <button type ="submit" class="article-edit"></button>
+                        <from method = "post" action = "/tasca4_3/nivel3/src/functions/eliminarCine.php?id=<?php echo $id:?>">
+                        <button type ="submit" class="article-delete"></button>
+                        </form>
                     </h3>
                     Poblacion: ' . $cine->obtenerPoblacion() . '
                 </a>
@@ -56,7 +53,7 @@
             ?>
         </div>
         <div class="config">
-            <form class="addCinema" action="index.php" method="post">
+            <form class="addCinema" action="/tasca4_3/nivel3/src/functions/crearCine.php" method="post">
                 <div>
                     <h3>Crear Cine</h3>
                 </div>
@@ -64,17 +61,17 @@
                 <input name="nombre" id="nombre" type="text" placeholder="Ingrese el nombre del cine">
                 <label for="poblacion">Poblacion</label>
                 <select name="poblacion" id="poblacion">
-                    <option value="barcelona">Barcelona (capital)</option>
-                    <option value="badalona">Badalona</option>
-                    <option value="hosopitalet">Hosopitalet</option>
-                    <option value="terrassa">Terrassa</option>
-                    <option value="sabadell">Sabadell</option>
-                    <option value="mataro">Mataro</option>
-                    <option value="sant cugat">Sant Cugat</option>
-                    <option value="igualada">Igualada</option>
-                    <option value="girona">Girona</option>
-                    <option value="tarragona">Tarragona</option>
-                    <option value="lleida">Lleida</option>
+                    <option value="Barcelona">Barcelona (capital)</option>
+                    <option value="Badalona">Badalona</option>
+                    <option value="Hosopitalet">Hosopitalet</option>
+                    <option value="Terrassa">Terrassa</option>
+                    <option value="Sabadell">Sabadell</option>
+                    <option value="Mataro">Mataro</option>
+                    <option value="Sant Cugat">Sant Cugat</option>
+                    <option value="Igualada">Igualada</option>
+                    <option value="Girona">Girona</option>
+                    <option value="Tarragona">Tarragona</option>
+                    <option value="Lleida">Lleida</option>
                 </select>
                 <button style="align-self: flex-start; margin: 0.5rem 0rem;" type="submit">Agregar</button>
             </form>
