@@ -27,15 +27,39 @@
         foreach ($cinemas as $id => $cine) {
             $articulos .= '
                 <div class="article">
-                <a href="#">
-                    <h3>' . $cine->obtenerNombre() . '
-                        <button type ="submit" class="article-edit"></button>
-                        <from method = "post" action = "/tasca4_3/nivel3/src/functions/eliminarCine.php?id=<?php echo $id:?>">
+                    <h3>
+                    <a href="#">' . $cine->obtenerNombre() . '</a>
+                        <button popovertarget ="popup-' . $id . '" class="article-edit"></button>
+                        <form method = "post" action = "/tasca4_3/nivel3/src/functions/eliminarCine.php?id=' . $id . '">
                         <button type ="submit" class="article-delete"></button>
                         </form>
                     </h3>
+                <a href="#">
                     Poblacion: ' . $cine->obtenerPoblacion() . '
                 </a>
+            </div>
+            <div id="popup-' . $id . '" popover>
+            <form class="editCinema" method = "post" action = "/tasca4_3/nivel3/src/functions/editarCine.php">
+            <input type="hidden" name="id" value = "' . $id . '">
+            <label for="nombre">Nombre del cine:</label>
+            <input name="nombre" id="nombre" type="text" value="' . $cine->obtenerNombre() . '">
+            <label for="poblacion">' . $cine->obtenerPoblacion() . '</label>
+            <select name="poblacion" id="poblacion">
+                    <option value="Barcelona">Barcelona (capital)</option>
+                    <option value="Badalona">Badalona</option>
+                    <option value="Hosopitalet">Hosopitalet</option>
+                    <option value="Terrassa">Terrassa</option>
+                    <option value="Sabadell">Sabadell</option>
+                    <option value="Mataro">Mataro</option>
+                    <option value="Sant Cugat">Sant Cugat</option>
+                    <option value="Igualada">Igualada</option>
+                    <option value="Girona">Girona</option>
+                    <option value="Tarragona">Tarragona</option>
+                    <option value="Lleida">Lleida</option>
+            </select>
+            <button class= "editCinema-save" type="submit">Guardar</button>
+            <button class= "editCinema-cancel" type="button" popovertarget="popup-' . $id . '" popovertargetaction="hide">Cancelar</button>
+            </form>
             </div>
             ';
         }

@@ -6,8 +6,12 @@ spl_autoload_register(function ($class_name) {
 
 session_start();
 
-$cine = new Cinema($_POST['nombre'], $_POST['poblacion']);
-$_SESSION['cinemas'][] = $cine;
+$id = $_GET['id'];
+if (isset($_SESSION['cinemas'][$id])) {
+    unset($_SESSION['cinemas'][$id]);
+    $_SESSION['cinemas'] = array_values($_SESSION['cinemas']); //to restart all the indexes again
+}
+
 
 header('Location: ../../index.php');
 exit;
