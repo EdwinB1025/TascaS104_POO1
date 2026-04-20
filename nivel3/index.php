@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="30">
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mediaQueries.css">
     <title>Document</title>
@@ -23,19 +24,23 @@
     }
     function crearArticulos(array $cinemas): string
     {
+
         $articulos = '';
         foreach ($cinemas as $id => $cine) {
+            $MayorDuracion =  $cine->buscarMayorDuracion();
             $articulos .= '
                 <div class="article">
                     <h3>
-                    <a href="#">' . $cine->obtenerNombre() . '</a>
+                    <a href="/tasca4_3/nivel3/Peliculas.php?id=' . $id . '">' . $cine->obtenerNombre() . '</a>
                         <button popovertarget ="popup-' . $id . '" class="article-edit"></button>
                         <form method = "post" action = "/tasca4_3/nivel3/src/functions/eliminarCine.php?id=' . $id . '">
                         <button type ="submit" class="article-delete"></button>
                         </form>
                     </h3>
-                <a href="#">
-                    Poblacion: ' . $cine->obtenerPoblacion() . '
+                <a href="/tasca4_3/nivel3/Peliculas.php?id=' . $id . '">
+                    Poblacion: ' . $cine->obtenerPoblacion() . '<br>
+                    Pelicula mas larga: ' . ($MayorDuracion?->obtenerNombre() ?? "No hay peliculas") . '<br>
+                    ' . "  -  " . 'Tiempo: ' . ($MayorDuracion?->obtenerTiempo() ?? "No hay peliculas") . '
                 </a>
             </div>
             <div id="popup-' . $id . '" popover>
@@ -43,8 +48,8 @@
             <input type="hidden" name="id" value = "' . $id . '">
             <label for="nombre">Nombre del cine:</label>
             <input name="nombre" id="nombre" type="text" value="' . $cine->obtenerNombre() . '">
-            <label for="poblacion">' . $cine->obtenerPoblacion() . '</label>
-            <select name="poblacion" id="poblacion">
+            <label for="poblacion">Poblacion:</label>
+            <select name="poblacion" id="poblacion" value = "' . $cine->obtenerPoblacion() . '">
                     <option value="Barcelona">Barcelona (capital)</option>
                     <option value="Badalona">Badalona</option>
                     <option value="Hosopitalet">Hosopitalet</option>
