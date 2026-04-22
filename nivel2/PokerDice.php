@@ -1,58 +1,62 @@
 <?php
+require 'Dado.php';
 class PokerDice
 {
     public const array DADO = ["A", "K", "Q", "J", "7", "8"];
-    public array $dados;
-    public array $tiradas;
+    static array $dados = [];
+    static array $tiradas = [];
 
-    public function __construct(?int $dado = null)
-    {
-        $this->dados = [];
-        $this->tiradas = array_fill(0, 5, 0);
-    }
 
-    private function defaultIndex(int $n): int
+    private static function defaultIndex(int $n): int
     {
         $n = match (true) {
             $n < 1 => 1,
-            $n > 6 => 6,
+            $n >= 5 => 5,
             default => $n
         };
         return $n;
     }
 
-    public function tirarDado(): int
+    public static function iniciarDados(int $n): void
     {
-        return mt_rand(0, 5);
-    }
-
-    public function tirarDados(int $n): void
-    {
-        $n = $this->defaultIndex($n);
-        for ($i = 0; $i < $n; $i++) {
-            $this->dados[$i] = $this->tirarDado();
-            $this->tiradas[$i]++;
+        if (sizeof(self::$dados) < $n) {
+            $inicial = ((sizeof(self::$dados) - 1) < 0) ? 0 : sizeof(self::$dados) - 1;
+            for ($i = $inicial; $i < $n; $i++) {
+                self::$dados[$i] = new Dado();
+            }
         }
     }
 
-    public function mostrarDados(): string
+    public static function tirarDados(int $n): void
+    {
+        $n = self::defaultIndex($n);
+        self::iniciarDados($n);
+        for ($i = 0; $i < $n; $i++) {
+            self::$dados[$i]->tirarDado();
+            self::$tiradas[$i] = self::$dados[$i]->getTiradas();
+        }
+    }
+
+    public static function mostrarDados(): string
     {
         $salida = "Los ultimos dados lanzados son:\n";
-        foreach ($this->dados as $i => $dado) {
-            $poker = self::DADO[$dado];
+        foreach (self::$dados as $i => $dado) {
+            $poker = self::DADO[$dado->getDado()];
             $numero = $i + 1;
             $salida .= "  Dado numero $numero es: $poker\n";
         }
         return $salida . "\n";
     }
 
-    public function mostrarTiradas(): string
+    public static function mostrarTiradas(): string
     {
-        $salida = "Los ultimos tiradas de  los dados son:\n";
-        foreach ($this->tiradas as $i => $tirada) {
+        $salida = "Los ultimos tiradas de los dados son:\n";
+        foreach (self::$dados as $i => $dado) {
             $numero = $i + 1;
+            $tirada = $dado->getTiradas();
             $salida .= "  Dado numero $numero se ha tirado: $tirada veces\n";
         }
-        return $salida . "\n";
+        $suma = array_sum(self::$tiradas);
+        return $salida . "\nLa suma total de las tiradas es: $suma\n";
     }
 }
