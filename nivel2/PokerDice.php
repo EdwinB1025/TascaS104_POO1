@@ -4,7 +4,7 @@ class PokerDice
 {
     public const array DADO = ["A", "K", "Q", "J", "7", "8"];
     static array $dados = [];
-    static array $tiradas = [];
+    static int $tiradas = 0;
 
 
     private static function defaultIndex(int $n): int
@@ -33,7 +33,7 @@ class PokerDice
         self::iniciarDados($n);
         for ($i = 0; $i < $n; $i++) {
             self::$dados[$i]->tirarDado();
-            self::$tiradas[$i] = self::$dados[$i]->getTiradas();
+            self::$tiradas += self::$dados[$i]->getTiradas();
         }
     }
 
@@ -56,7 +56,7 @@ class PokerDice
             $tirada = $dado->getTiradas();
             $salida .= "  Dado numero $numero se ha tirado: $tirada veces\n";
         }
-        $suma = array_sum(self::$tiradas);
+        $suma = self::$tiradas;
         return $salida . "\nLa suma total de las tiradas es: $suma\n";
     }
 }
